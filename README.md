@@ -1,4 +1,4 @@
-Magmelldollar Core integration/staging tree
+Mag Mell Dollar Core integration/staging tree
 =====================================
 
 [![Build Status](https://travis-ci.org/magmelldollar-project/magmelldollar.svg?branch=master)](https://travis-ci.org/magmelldollar-project/magmelldollar)
