@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
-# Copyright (c) 2016 The Bitcoin Core developers
+# Copyright (c) 2016 The Magmelldollar Core developers
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
 from test_framework.mininode import *
-from test_framework.test_framework import BitcoinTestFramework
+from test_framework.test_framework import MagmelldollarTestFramework
 from test_framework.util import *
 from test_framework.script import *
 from test_framework.blocktools import create_block, create_coinbase, add_witness_commitment, WITNESS_COMMITMENT_HEADER
@@ -178,7 +178,7 @@ def sign_P2PK_witness_input(script, txTo, inIdx, hashtype, value, key):
     txTo.rehash()
 
 
-class SegWitTest(BitcoinTestFramework):
+class SegWitTest(MagmelldollarTestFramework):
     def setup_chain(self):
         initialize_chain_clean(self.options.tmpdir, 3)
 
@@ -275,7 +275,7 @@ class SegWitTest(BitcoinTestFramework):
         # rule).
         self.test_node.test_witness_block(block, accepted=False)
         # TODO: fix synchronization so we can test reject reason
-        # Right now, bitcoind delays sending reject messages for blocks
+        # Right now, magmelldollard delays sending reject messages for blocks
         # until the future, making synchronization here difficult.
         #assert_equal(self.test_node.last_reject.reason, "unexpected-witness")
 
@@ -599,7 +599,7 @@ class SegWitTest(BitcoinTestFramework):
         self.nodes[0].submitblock(bytes_to_hex_str(block.serialize(True)))
         assert(self.nodes[0].getbestblockhash() != block.hash)
 
-        # Now redo commitment with the standard nonce, but let bitcoind fill it in.
+        # Now redo commitment with the standard nonce, but let magmelldollard fill it in.
         add_witness_commitment(block, nonce=0)
         block.vtx[0].wit = CTxWitness()
         block.solve()
@@ -1030,7 +1030,7 @@ class SegWitTest(BitcoinTestFramework):
         assert(self.test_node.last_getdata.inv[0].type == blocktype)
         self.test_node.test_witness_block(block1, True)
 
-        # Litecoin: Blocks with nVersion < VB_TOP_BITS are rejected
+        # Magmelldollar: Blocks with nVersion < VB_TOP_BITS are rejected
 
         # block2 = self.build_next_block(nVersion=4)
         # block2.solve()
@@ -1090,7 +1090,7 @@ class SegWitTest(BitcoinTestFramework):
             assert_equal(rpc_details["weight"], weight)
 
             # Upgraded node should not ask for blocks from unupgraded
-            # Litecoin: Blocks with nVersion < VB_TOP_BITS are rejected
+            # Magmelldollar: Blocks with nVersion < VB_TOP_BITS are rejected
             block4 = self.build_next_block(nVersion=(VB_TOP_BITS | (1<<15)))
             block4.solve()
             self.old_node.getdataset = set()
@@ -1518,7 +1518,7 @@ class SegWitTest(BitcoinTestFramework):
         # This transaction should not be accepted into the mempool pre- or
         # post-segwit.  Mempool acceptance will use SCRIPT_VERIFY_WITNESS which
         # will require a witness to spend a witness program regardless of
-        # segwit activation.  Note that older bitcoind's that are not
+        # segwit activation.  Note that older magmelldollard's that are not
         # segwit-aware would also reject this for failing CLEANSTACK.
         self.test_node.test_transaction_acceptance(spend_tx, with_witness=False, accepted=False)
 
@@ -1554,12 +1554,12 @@ class SegWitTest(BitcoinTestFramework):
     # Test the behavior of starting up a segwit-aware node after the softfork
     # has activated.  As segwit requires different block data than pre-segwit
     # nodes would have stored, this requires special handling.
-    # To enable this test, pass --oldbinary=<path-to-pre-segwit-bitcoind> to
+    # To enable this test, pass --oldbinary=<path-to-pre-segwit-magmelldollard> to
     # the test.
     def test_upgrade_after_activation(self, node, node_id):
         print("\tTesting software upgrade after softfork activation")
 
-        assert(node_id != 0) # node0 is assumed to be a segwit-active bitcoind
+        assert(node_id != 0) # node0 is assumed to be a segwit-active magmelldollard
 
         # Make sure the nodes are all up
         sync_blocks(self.nodes)

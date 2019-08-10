@@ -52,7 +52,7 @@
     </message>
     </context>
 <context>
-    <name>BitcoinGUI</name>
+    <name>MagmelldollarGUI</name>
     <message>
         <source>&amp;Overview</source>
         <translation>&amp;கண்ணோட்டம்</translation>
@@ -90,8 +90,8 @@
         <translation>&amp;செய்தியை சரிசெய்...</translation>
     </message>
     <message>
-        <source>Litecoin</source>
-        <translation>Litecoin</translation>
+        <source>Magmelldollar</source>
+        <translation>Magmelldollar</translation>
     </message>
     <message>
         <source>Wallet</source>
@@ -712,10 +712,10 @@
     <name>WalletView</name>
     </context>
 <context>
-    <name>bitcoin-core</name>
+    <name>magmelldollar-core</name>
     <message>
-        <source>Litecoin Core</source>
-        <translation>Litecoin மையம்</translation>
+        <source>Magmelldollar Core</source>
+        <translation>Magmelldollar மையம்</translation>
     </message>
     <message>
         <source>(default: %u)</source>

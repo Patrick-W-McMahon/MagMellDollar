@@ -64,7 +64,7 @@
     <name>BanTableModel</name>
     </context>
 <context>
-    <name>BitcoinGUI</name>
+    <name>MagmelldollarGUI</name>
     <message>
         <source>Sign &amp;message...</source>
         <translation>Потпиши &amp;порака...</translation>
@@ -138,16 +138,16 @@
         <translation>Повторно индексирање на блокови од дискот...</translation>
     </message>
     <message>
-        <source>Send coins to a Litecoin address</source>
-        <translation>Испрати Litecoin на Litecoin адреса</translation>
+        <source>Send coins to a Magmelldollar address</source>
+        <translation>Испрати Magmelldollar на Magmelldollar адреса</translation>
     </message>
     <message>
         <source>&amp;Verify message...</source>
         <translation>&amp;Потврди порака...</translation>
     </message>
     <message>
-        <source>Litecoin</source>
-        <translation>Litecoin</translation>
+        <source>Magmelldollar</source>
+        <translation>Magmelldollar</translation>
     </message>
     <message>
         <source>Wallet</source>
@@ -594,14 +594,14 @@
     <name>WalletView</name>
     </context>
 <context>
-    <name>bitcoin-core</name>
+    <name>magmelldollar-core</name>
     <message>
         <source>Options:</source>
         <translation>Опции:</translation>
     </message>
     <message>
-        <source>Litecoin Core</source>
-        <translation>Litecoin Core</translation>
+        <source>Magmelldollar Core</source>
+        <translation>Magmelldollar Core</translation>
     </message>
     <message>
         <source>Warning</source>

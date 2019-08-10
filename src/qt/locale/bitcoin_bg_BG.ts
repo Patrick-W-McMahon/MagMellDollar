@@ -76,7 +76,7 @@
     </message>
 </context>
 <context>
-    <name>BitcoinGUI</name>
+    <name>MagmelldollarGUI</name>
     <message>
         <source>Sign &amp;message...</source>
         <translation>Подпиши съобщение...</translation>
@@ -260,9 +260,9 @@
     <name>WalletView</name>
     </context>
 <context>
-    <name>bitcoin-core</name>
+    <name>magmelldollar-core</name>
     <message>
-        <source>Bitcoin Core</source>
+        <source>Magmelldollar Core</source>
         <translation>Биткойн ядро</translation>
     </message>
     </context>

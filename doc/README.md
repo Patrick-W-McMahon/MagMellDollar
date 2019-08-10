@@ -1,39 +1,39 @@
-Litecoin Core 0.13.2
+Magmelldollar Core 0.13.2
 =====================
 
 Setup
 ---------------------
-[Litecoin Core](http://litecoin.org/en/download) is the original Litecoin client and it builds the backbone of the network. However, it downloads and stores the entire history of Litecoin transactions (which is currently several GBs); depending on the speed of your computer and network connection, the synchronization process can take anywhere from a few hours to a day or more.
+[Magmelldollar Core](http://magmelldollar.org/en/download) is the original Magmelldollar client and it builds the backbone of the network. However, it downloads and stores the entire history of Magmelldollar transactions (which is currently several GBs); depending on the speed of your computer and network connection, the synchronization process can take anywhere from a few hours to a day or more.
 
 Running
 ---------------------
-The following are some helpful notes on how to run Litecoin on your native platform.
+The following are some helpful notes on how to run Magmelldollar on your native platform.
 
 ### Unix
 
 Unpack the files into a directory and run:
 
-- `bin/litecoin-qt` (GUI) or
-- `bin/litecoind` (headless)
+- `bin/magmelldollar-qt` (GUI) or
+- `bin/magmelldollard` (headless)
 
 ### Windows
 
-Unpack the files into a directory, and then run litecoin-qt.exe.
+Unpack the files into a directory, and then run magmelldollar-qt.exe.
 
 ### OS X
 
-Drag Litecoin-Core to your applications folder, and then run Litecoin-Core.
+Drag Magmelldollar-Core to your applications folder, and then run Magmelldollar-Core.
 
 ### Need Help?
 
-* See the documentation at the [Litecoin Wiki](https://litecoin.info/)
+* See the documentation at the [Magmelldollar Wiki](https://magmelldollar.info/)
 for help and more information.
-* Ask for help on [#litecoin](http://webchat.freenode.net?channels=litecoin) on Freenode. If you don't have an IRC client use [webchat here](http://webchat.freenode.net?channels=litecoin).
-* Ask for help on the [LitecoinTalk](https://litecointalk.io/) forums.
+* Ask for help on [#magmelldollar](http://webchat.freenode.net?channels=magmelldollar) on Freenode. If you don't have an IRC client use [webchat here](http://webchat.freenode.net?channels=magmelldollar).
+* Ask for help on the [MagmelldollarTalk](https://magmelldollartalk.io/) forums.
 
 Building
 ---------------------
-The following are developer notes on how to build Litecoin on your native platform. They are not complete guides, but include notes on the necessary libraries, compile flags, etc.
+The following are developer notes on how to build Magmelldollar on your native platform. They are not complete guides, but include notes on the necessary libraries, compile flags, etc.
 
 - [OS X Build Notes](build-osx.md)
 - [Unix Build Notes](build-unix.md)
@@ -43,13 +43,13 @@ The following are developer notes on how to build Litecoin on your native platfo
 
 Development
 ---------------------
-The Litecoin repo's [root README](/README.md) contains relevant information on the development process and automated testing.
+The Magmelldollar repo's [root README](/README.md) contains relevant information on the development process and automated testing.
 
 - [Developer Notes](developer-notes.md)
 - [Multiwallet Qt Development](multiwallet-qt.md)
 - [Release Notes](release-notes.md)
 - [Release Process](release-process.md)
-- [Source Code Documentation (External Link)](https://dev.visucore.com/bitcoin/doxygen/)
+- [Source Code Documentation (External Link)](https://dev.visucore.com/magmelldollar/doxygen/)
 - [Translation Process](translation_process.md)
 - [Translation Strings Policy](translation_strings_policy.md)
 - [Unit Tests](unit-tests.md)
@@ -60,8 +60,8 @@ The Litecoin repo's [root README](/README.md) contains relevant information on t
 - [Benchmarking](benchmarking.md)
 
 ### Resources
-* Discuss on the [LitecoinTalk](https://litecointalk.io/) forums.
-* Discuss project-specific development on #litecoin on Freenode. If you don't have an IRC client use [webchat here](http://webchat.freenode.net/?channels=litecoin).
+* Discuss on the [MagmelldollarTalk](https://magmelldollartalk.io/) forums.
+* Discuss project-specific development on #magmelldollar on Freenode. If you don't have an IRC client use [webchat here](http://webchat.freenode.net/?channels=magmelldollar).
 
 ### Miscellaneous
 - [Assets Attribution](assets-attribution.md)

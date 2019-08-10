@@ -1,4 +1,4 @@
-// Copyright (c) 2014-2015 The Bitcoin Core developers
+// Copyright (c) 2014-2015 The Magmelldollar Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -208,14 +208,14 @@ int CBase58Data::CompareTo(const CBase58Data& b58) const
 
 namespace
 {
-class CBitcoinAddressVisitor : public boost::static_visitor<bool>
+class CMagmelldollarAddressVisitor : public boost::static_visitor<bool>
 {
 private:
-    CBitcoinAddress* addr;
+    CMagmelldollarAddress* addr;
     CChainParams::Base58Type script_type_;
 
 public:
-    CBitcoinAddressVisitor(CBitcoinAddress* addrIn, CChainParams::Base58Type script_type) 
+    CMagmelldollarAddressVisitor(CMagmelldollarAddress* addrIn, CChainParams::Base58Type script_type) 
       : addr(addrIn), script_type_(script_type) 
     {
         assert(script_type == CChainParams::SCRIPT_ADDRESS || 
@@ -229,31 +229,31 @@ public:
 
 } // anon namespace
 
-bool CBitcoinAddress::Set(const CKeyID& id)
+bool CMagmelldollarAddress::Set(const CKeyID& id)
 {
     SetData(Params().Base58Prefix(CChainParams::PUBKEY_ADDRESS), &id, 20);
     return true;
 }
 
-bool CBitcoinAddress::Set(const CScriptID& id, CChainParams::Base58Type type)
+bool CMagmelldollarAddress::Set(const CScriptID& id, CChainParams::Base58Type type)
 {
     assert(type == CChainParams::SCRIPT_ADDRESS || type == CChainParams::SCRIPT_ADDRESS2);
     SetData(Params().Base58Prefix(type), &id, 20);
     return true;
 }
 
-bool CBitcoinAddress::Set(const CTxDestination& dest, CChainParams::Base58Type type)
+bool CMagmelldollarAddress::Set(const CTxDestination& dest, CChainParams::Base58Type type)
 {
     assert(type == CChainParams::SCRIPT_ADDRESS || type == CChainParams::SCRIPT_ADDRESS2);
-    return boost::apply_visitor(CBitcoinAddressVisitor(this, type), dest);
+    return boost::apply_visitor(CMagmelldollarAddressVisitor(this, type), dest);
 }
 
-bool CBitcoinAddress::IsValid() const
+bool CMagmelldollarAddress::IsValid() const
 {
     return IsValid(Params());
 }
 
-bool CBitcoinAddress::IsValid(const CChainParams& params) const
+bool CMagmelldollarAddress::IsValid(const CChainParams& params) const
 {
     bool fCorrectSize = vchData.size() == 20;
     bool fKnownVersion = vchVersion == params.Base58Prefix(CChainParams::PUBKEY_ADDRESS) ||
@@ -262,7 +262,7 @@ bool CBitcoinAddress::IsValid(const CChainParams& params) const
     return fCorrectSize && fKnownVersion;
 }
 
-CTxDestination CBitcoinAddress::Get() const
+CTxDestination CMagmelldollarAddress::Get() const
 {
     if (!IsValid())
         return CNoDestination();
@@ -277,7 +277,7 @@ CTxDestination CBitcoinAddress::Get() const
         return CNoDestination();
 }
 
-bool CBitcoinAddress::GetIndexKey(uint160& hashBytes, int& type) const
+bool CMagmelldollarAddress::GetIndexKey(uint160& hashBytes, int& type) const
 {
     if (!IsValid()) {
         return false;
@@ -295,7 +295,7 @@ bool CBitcoinAddress::GetIndexKey(uint160& hashBytes, int& type) const
     return false;
 }
 
-bool CBitcoinAddress::GetKeyID(CKeyID& keyID) const
+bool CMagmelldollarAddress::GetKeyID(CKeyID& keyID) const
 {
     if (!IsValid() || vchVersion != Params().Base58Prefix(CChainParams::PUBKEY_ADDRESS))
         return false;
@@ -305,13 +305,13 @@ bool CBitcoinAddress::GetKeyID(CKeyID& keyID) const
     return true;
 }
 
-bool CBitcoinAddress::IsScript() const
+bool CMagmelldollarAddress::IsScript() const
 {
     return IsValid() && (vchVersion == Params().Base58Prefix(CChainParams::SCRIPT_ADDRESS) ||
                          vchVersion == Params().Base58Prefix(CChainParams::SCRIPT_ADDRESS2));
 }
 
-void CBitcoinSecret::SetKey(const CKey& vchSecret)
+void CMagmelldollarSecret::SetKey(const CKey& vchSecret)
 {
     assert(vchSecret.IsValid());
     SetData(Params().Base58Prefix(CChainParams::SECRET_KEY), vchSecret.begin(), vchSecret.size());
@@ -319,7 +319,7 @@ void CBitcoinSecret::SetKey(const CKey& vchSecret)
         vchData.push_back(1);
 }
 
-CKey CBitcoinSecret::GetKey()
+CKey CMagmelldollarSecret::GetKey()
 {
     CKey ret;
     assert(vchData.size() >= 32);
@@ -327,19 +327,19 @@ CKey CBitcoinSecret::GetKey()
     return ret;
 }
 
-bool CBitcoinSecret::IsValid() const
+bool CMagmelldollarSecret::IsValid() const
 {
     bool fExpectedFormat = vchData.size() == 32 || (vchData.size() == 33 && vchData[32] == 1);
     bool fCorrectVersion = vchVersion == Params().Base58Prefix(CChainParams::SECRET_KEY);
     return fExpectedFormat && fCorrectVersion;
 }
 
-bool CBitcoinSecret::SetString(const char* pszSecret)
+bool CMagmelldollarSecret::SetString(const char* pszSecret)
 {
     return CBase58Data::SetString(pszSecret) && IsValid();
 }
 
-bool CBitcoinSecret::SetString(const std::string& strSecret)
+bool CMagmelldollarSecret::SetString(const std::string& strSecret)
 {
     return SetString(strSecret.c_str());
 }

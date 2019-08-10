@@ -21,7 +21,7 @@ if test -z $with_protoc_bindir; then
 fi
 # Disable comparison tool
 #if test -z $with_comparison_tool; then
-#  with_comparison_tool=$depends_prefix/native/share/BitcoindComparisonTool_jar/BitcoindComparisonTool.jar
+#  with_comparison_tool=$depends_prefix/native/share/MagmelldollardComparisonTool_jar/MagmelldollardComparisonTool.jar
 #fi
 
 

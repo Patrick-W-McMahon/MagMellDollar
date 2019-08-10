@@ -1,24 +1,24 @@
-Litecoin Core version 0.13.3 is now available from:
+Magmelldollar Core version 0.13.3 is now available from:
 
-  <https://download.litecoin.org/litecoin-0.13.3/>
+  <https://download.magmelldollar.org/magmelldollar-0.13.3/>
 
 This is a new major version release, including new features, various bugfixes and performance improvements, as well as updated translations.
 It is recommended to upgrade to this version.
 
 Please report bugs using the issue tracker at github:
 
-  <https://github.com/litecoin-project/litecoin/issues>
+  <https://github.com/magmelldollar-project/magmelldollar/issues>
 
 Compatibility
 ==============
 
 Microsoft ended support for Windows XP on [April 8th, 2014](https://www.microsoft.com/en-us/WindowsForBusiness/end-of-xp-support),
 an OS initially released in 2001. This means that not even critical security
-updates will be released anymore. Without security updates, using a litecoin
+updates will be released anymore. Without security updates, using a magmelldollar
 wallet on a XP machine is irresponsible at least.
 
-In addition to that, with 0.12.x there have been varied reports of Bitcoin Core
-randomly crashing on Windows XP. It is [not clear](https://github.com/bitcoin/bitcoin/issues/7681#issuecomment-217439891)
+In addition to that, with 0.12.x there have been varied reports of Magmelldollar Core
+randomly crashing on Windows XP. It is [not clear](https://github.com/magmelldollar/magmelldollar/issues/7681#issuecomment-217439891)
 what the source of these crashes is, but it is likely that upstream
 libraries such as Qt are no longer being tested on XP.
 
@@ -41,7 +41,7 @@ Notable changes
 New Multisig Address Prefix
 ---------------------------
 
-Litecoin Core now supports P2SH addresses beginning with M on mainnet and Q on testnet.
+Magmelldollar Core now supports P2SH addresses beginning with M on mainnet and Q on testnet.
 P2SH addresses beginning with 3 on mainnet and m or n on testnet will continue to be valid.
 Old and new addresses can be used interchangeably.
 
@@ -55,7 +55,7 @@ Credits
 
 Thanks to everyone who directly contributed to this release:
 
-- [The Bitcoin Core Developers](/doc/release-notes)
+- [The Magmelldollar Core Developers](/doc/release-notes)
 - Adrian Gallagher
 - shaolinfry
 - Xinxi Wang

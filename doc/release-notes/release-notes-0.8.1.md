@@ -1,11 +1,11 @@
-Bitcoin-Qt/bitcoind version 0.8.1 is now available from:
-  http://sourceforge.net/projects/bitcoin/files/Bitcoin/bitcoin-0.8.1/
+Magmelldollar-Qt/magmelldollard version 0.8.1 is now available from:
+  http://sourceforge.net/projects/magmelldollar/files/Magmelldollar/magmelldollar-0.8.1/
 
 This is a maintenance release that adds a new network rule to avoid
 a chain-forking incompatibility with versions 0.7.2 and earlier.
 
 Please report bugs using the issue tracker at github:
-  https://github.com/bitcoin/bitcoin/issues
+  https://github.com/magmelldollar/magmelldollar/issues
 
 
 How to Upgrade
@@ -14,7 +14,7 @@ How to Upgrade
 If you are running an older version, shut it down. Wait
 until it has completely shut down (which might take a few minutes for older
 versions), then run the installer (on Windows) or just copy over
-/Applications/Bitcoin-Qt (on Mac) or bitcoind/bitcoin-qt (on Linux).
+/Applications/Magmelldollar-Qt (on Mac) or magmelldollard/magmelldollar-qt (on Linux).
 
 If you are upgrading from version 0.7.2 or earlier, the first time you
 run 0.8.1 your blockchain files will be re-indexed, which will take

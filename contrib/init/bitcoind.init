@@ -1,36 +1,36 @@
 #!/bin/bash
 #
-#  bitcoind The bitcoin core server.
+#  magmelldollard The magmelldollar core server.
 #
 #
 # chkconfig: 345 80 20
-# description: bitcoind
-# processname: bitcoind
+# description: magmelldollard
+# processname: magmelldollard
 #
 
 # Source function library.
 . /etc/init.d/functions
 
-# you can override defaults in /etc/sysconfig/bitcoind, see below
-if [ -f /etc/sysconfig/bitcoind ]; then
-        . /etc/sysconfig/bitcoind
+# you can override defaults in /etc/sysconfig/magmelldollard, see below
+if [ -f /etc/sysconfig/magmelldollard ]; then
+        . /etc/sysconfig/magmelldollard
 fi
 
 RETVAL=0
 
-prog=bitcoind
-# you can override the lockfile via BITCOIND_LOCKFILE in /etc/sysconfig/bitcoind
-lockfile=${BITCOIND_LOCKFILE-/var/lock/subsys/bitcoind}
+prog=magmelldollard
+# you can override the lockfile via BITCOIND_LOCKFILE in /etc/sysconfig/magmelldollard
+lockfile=${BITCOIND_LOCKFILE-/var/lock/subsys/magmelldollard}
 
-# bitcoind defaults to /usr/bin/bitcoind, override with BITCOIND_BIN
-bitcoind=${BITCOIND_BIN-/usr/bin/bitcoind}
+# magmelldollard defaults to /usr/bin/magmelldollard, override with BITCOIND_BIN
+magmelldollard=${BITCOIND_BIN-/usr/bin/magmelldollard}
 
-# bitcoind opts default to -disablewallet, override with BITCOIND_OPTS
-bitcoind_opts=${BITCOIND_OPTS--disablewallet}
+# magmelldollard opts default to -disablewallet, override with BITCOIND_OPTS
+magmelldollard_opts=${BITCOIND_OPTS--disablewallet}
 
 start() {
     echo -n $"Starting $prog: "
-    daemon $DAEMONOPTS $bitcoind $bitcoind_opts
+    daemon $DAEMONOPTS $magmelldollard $magmelldollard_opts
     RETVAL=$?
     echo
     [ $RETVAL -eq 0 ] && touch $lockfile

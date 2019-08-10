@@ -1,11 +1,11 @@
 Sample configuration files for:
 
-SystemD: bitcoind.service
-Upstart: bitcoind.conf
-OpenRC:  bitcoind.openrc
-         bitcoind.openrcconf
-CentOS:  bitcoind.init
-OS X:    org.bitcoin.bitcoind.plist
+SystemD: magmelldollard.service
+Upstart: magmelldollard.conf
+OpenRC:  magmelldollard.openrc
+         magmelldollard.openrcconf
+CentOS:  magmelldollard.init
+OS X:    org.magmelldollar.magmelldollard.plist
 
 have been made available to assist packagers in creating node packages here.
 

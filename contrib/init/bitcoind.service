@@ -1,15 +1,15 @@
 [Unit]
-Description=Bitcoin's distributed currency daemon
+Description=Magmelldollar's distributed currency daemon
 After=network.target
 
 [Service]
-User=bitcoin
-Group=bitcoin
+User=magmelldollar
+Group=magmelldollar
 
 Type=forking
-PIDFile=/var/lib/bitcoind/bitcoind.pid
-ExecStart=/usr/bin/bitcoind -daemon -pid=/var/lib/bitcoind/bitcoind.pid \
--conf=/etc/bitcoin/bitcoin.conf -datadir=/var/lib/bitcoind -disablewallet
+PIDFile=/var/lib/magmelldollard/magmelldollard.pid
+ExecStart=/usr/bin/magmelldollard -daemon -pid=/var/lib/magmelldollard/magmelldollard.pid \
+-conf=/etc/magmelldollar/magmelldollar.conf -datadir=/var/lib/magmelldollard -disablewallet
 
 Restart=always
 PrivateTmp=true

@@ -1,6 +1,6 @@
 [Protocol]
-exec=bitcoin-qt '%u'
-protocol=bitcoin
+exec=magmelldollar-qt '%u'
+protocol=magmelldollar
 input=none
 output=none
 helper=true
