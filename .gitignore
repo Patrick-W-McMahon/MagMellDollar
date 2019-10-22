@@ -8,6 +8,8 @@ src/litecoin-tx
 src/test/test_litecoin
 src/qt/test/test_litecoin-qt
 
+src/qt/test/test_magmelldollar-qt
+src/qt/magmelldollar-qt
 src/magmelldollar-cli
 src/magmelldollar-tx
 src/magmelldollard
