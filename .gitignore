@@ -8,6 +8,12 @@ src/litecoin-tx
 src/test/test_litecoin
 src/qt/test/test_litecoin-qt
 
+src/magmelldollar-cli
+src/magmelldollar-tx
+src/magmelldollard
+src/test/test_magmelldollar
+
+
 # autoreconf
 Makefile.in
 aclocal.m4
