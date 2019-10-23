@@ -1,6 +1,6 @@
 all:
-	$(MAKE) -C .. magmelldollar_test
+	$(MAKE) -C .. bitcoin_test
 clean:
-	$(MAKE) -C .. magmelldollar_test_clean
+	$(MAKE) -C .. bitcoin_test_clean
 check:
-	$(MAKE) -C .. magmelldollar_test_check
+	$(MAKE) -C .. bitcoin_test_check

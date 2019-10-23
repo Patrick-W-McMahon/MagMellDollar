@@ -1,10 +1,10 @@
-// Copyright (c) 2011-2014 The Magmelldollar Core developers
+// Copyright (c) 2011-2018 The Bitcoin Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#include "magmelldollaraddressvalidator.h"
+#include <qt/bitcoinaddressvalidator.h>
 
-#include "base58.h"
+#include <key_io.h>
 
 /* Base58 characters are:
      "123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz"
@@ -15,12 +15,12 @@
   - All lower-case letters except for 'l'
 */
 
-MagmelldollarAddressEntryValidator::MagmelldollarAddressEntryValidator(QObject *parent) :
+BitcoinAddressEntryValidator::BitcoinAddressEntryValidator(QObject *parent) :
     QValidator(parent)
 {
 }
 
-QValidator::State MagmelldollarAddressEntryValidator::validate(QString &input, int &pos) const
+QValidator::State BitcoinAddressEntryValidator::validate(QString &input, int &pos) const
 {
     Q_UNUSED(pos);
 
@@ -67,7 +67,7 @@ QValidator::State MagmelldollarAddressEntryValidator::validate(QString &input, i
         if (((ch >= '0' && ch<='9') ||
             (ch >= 'a' && ch<='z') ||
             (ch >= 'A' && ch<='Z')) &&
-            ch != 'l' && ch != 'I' && ch != '0' && ch != 'O')
+            ch != 'I' && ch != 'O') // Characters invalid in both Base58 and Bech32
         {
             // Alphanumeric and not a 'forbidden' character
         }
@@ -80,18 +80,18 @@ QValidator::State MagmelldollarAddressEntryValidator::validate(QString &input, i
     return state;
 }
 
-MagmelldollarAddressCheckValidator::MagmelldollarAddressCheckValidator(QObject *parent) :
+BitcoinAddressCheckValidator::BitcoinAddressCheckValidator(QObject *parent) :
     QValidator(parent)
 {
 }
 
-QValidator::State MagmelldollarAddressCheckValidator::validate(QString &input, int &pos) const
+QValidator::State BitcoinAddressCheckValidator::validate(QString &input, int &pos) const
 {
     Q_UNUSED(pos);
-    // Validate the passed Magmelldollar address
-    CMagmelldollarAddress addr(input.toStdString());
-    if (addr.IsValid())
+    // Validate the passed Bitcoin address
+    if (IsValidDestinationString(input.toStdString())) {
         return QValidator::Acceptable;
+    }
 
     return QValidator::Invalid;
 }

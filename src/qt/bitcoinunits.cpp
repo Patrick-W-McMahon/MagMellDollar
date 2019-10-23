@@ -1,86 +1,102 @@
-// Copyright (c) 2011-2015 The Magmelldollar Core developers
+// Copyright (c) 2011-2018 The Bitcoin Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#include "magmelldollarunits.h"
+#include <qt/bitcoinunits.h>
 
-#include "primitives/transaction.h"
+#include <primitives/transaction.h>
 
 #include <QStringList>
 
-MagmelldollarUnits::MagmelldollarUnits(QObject *parent):
+BitcoinUnits::BitcoinUnits(QObject *parent):
         QAbstractListModel(parent),
         unitlist(availableUnits())
 {
 }
 
-QList<MagmelldollarUnits::Unit> MagmelldollarUnits::availableUnits()
+QList<BitcoinUnits::Unit> BitcoinUnits::availableUnits()
 {
-    QList<MagmelldollarUnits::Unit> unitlist;
-    unitlist.append(MMD);
-    unitlist.append(mMMD);
-    unitlist.append(uMMD);
+    QList<BitcoinUnits::Unit> unitlist;
+    unitlist.append(BTC);
+    unitlist.append(mBTC);
+    unitlist.append(uBTC);
+    unitlist.append(SAT);
     return unitlist;
 }
 
-bool MagmelldollarUnits::valid(int unit)
+bool BitcoinUnits::valid(int unit)
 {
     switch(unit)
     {
-    case MMD:
-    case mMMD:
-    case uMMD:
+    case BTC:
+    case mBTC:
+    case uBTC:
+    case SAT:
         return true;
     default:
         return false;
     }
 }
 
-QString MagmelldollarUnits::name(int unit)
+QString BitcoinUnits::longName(int unit)
 {
     switch(unit)
     {
-    case MMD: return QString("MMD");
-    case mMMD: return QString("mMMD");
-    case uMMD: return QString::fromUtf8("μMMD");
+    case BTC: return QString("MMD");
+    case mBTC: return QString("lites");
+    case uBTC: return QString("photons");
+    case SAT: return QString("liteoshi");
     default: return QString("???");
     }
 }
 
-QString MagmelldollarUnits::description(int unit)
+QString BitcoinUnits::shortName(int unit)
 {
     switch(unit)
     {
-    case MMD: return QString("Magmelldollars");
-    case mMMD: return QString("Milli-Magmelldollars (1 / 1" THIN_SP_UTF8 "000)");
-    case uMMD: return QString("Micro-Magmelldollars (1 / 1" THIN_SP_UTF8 "000" THIN_SP_UTF8 "000)");
+    case uBTC: return QString::fromUtf8("bits");
+    case SAT: return QString("sat");
+    default: return longName(unit);
+    }
+}
+
+QString BitcoinUnits::description(int unit)
+{
+    switch(unit)
+    {
+    case BTC: return QString("Magmelldollars");
+    case mBTC: return QString("Lites (1 / 1" THIN_SP_UTF8 "000)");
+    case uBTC: return QString("Photons (1 / 1" THIN_SP_UTF8 "000" THIN_SP_UTF8 "000)");
+    case SAT: return QString("Liteoshis (sat) (1 / 100" THIN_SP_UTF8 "000" THIN_SP_UTF8 "000)");
     default: return QString("???");
     }
 }
 
-qint64 MagmelldollarUnits::factor(int unit)
+qint64 BitcoinUnits::factor(int unit)
 {
     switch(unit)
     {
-    case MMD:  return 100000000;
-    case mMMD: return 100000;
-    case uMMD: return 100;
-    default:   return 100000000;
+    case BTC: return 100000000;
+    case mBTC: return 100000;
+    case uBTC: return 100;
+    case SAT: return 1;
+    default: return 100000000;
     }
 }
 
-int MagmelldollarUnits::decimals(int unit)
+int BitcoinUnits::decimals(int unit)
 {
     switch(unit)
     {
-    case MMD: return 8;
-    case mMMD: return 5;
-    case uMMD: return 2;
+    case BTC: return 8;
+    case mBTC: return 5;
+    case uBTC: return 2;
+    case SAT: return 0;
     default: return 0;
     }
 }
 
-QString MagmelldollarUnits::format(int unit, const CAmount& nIn, bool fPlus, SeparatorStyle separators)
+QString BitcoinUnits::format(int unit, const CAmount& nIn, bool fPlus, SeparatorStyle separators)
 {
     // Note: not using straight sprintf here because we do NOT want
     // localized number formatting.
@@ -91,9 +107,7 @@ QString MagmelldollarUnits::format(int unit, const CAmount& nIn, bool fPlus, Sep
     int num_decimals = decimals(unit);
     qint64 n_abs = (n > 0 ? n : -n);
     qint64 quotient = n_abs / coin;
-    qint64 remainder = n_abs % coin;
     QString quotient_str = QString::number(quotient);
-    QString remainder_str = QString::number(remainder).rightJustified(num_decimals, '0');
 
     // Use SI-style thin space separators as these are locale independent and can't be
     // confused with the decimal marker.
@@ -107,7 +121,14 @@ QString MagmelldollarUnits::format(int unit, const CAmount& nIn, bool fPlus, Sep
         quotient_str.insert(0, '-');
     else if (fPlus && n > 0)
         quotient_str.insert(0, '+');
-    return quotient_str + QString(".") + remainder_str;
+
+    if (num_decimals > 0) {
+        qint64 remainder = n_abs % coin;
+        QString remainder_str = QString::number(remainder).rightJustified(num_decimals, '0');
+        return quotient_str + QString(".") + remainder_str;
+    } else {
+        return quotient_str;
+    }
 }
 
 
@@ -119,12 +140,12 @@ QString MagmelldollarUnits::format(int unit, const CAmount& nIn, bool fPlus, Sep
 // Please take care to use formatHtmlWithUnit instead, when
 // appropriate.
 
-QString MagmelldollarUnits::formatWithUnit(int unit, const CAmount& amount, bool plussign, SeparatorStyle separators)
+QString BitcoinUnits::formatWithUnit(int unit, const CAmount& amount, bool plussign, SeparatorStyle separators)
 {
-    return format(unit, amount, plussign, separators) + QString(" ") + name(unit);
+    return format(unit, amount, plussign, separators) + QString(" ") + shortName(unit);
 }
 
-QString MagmelldollarUnits::formatHtmlWithUnit(int unit, const CAmount& amount, bool plussign, SeparatorStyle separators)
+QString BitcoinUnits::formatHtmlWithUnit(int unit, const CAmount& amount, bool plussign, SeparatorStyle separators)
 {
     QString str(formatWithUnit(unit, amount, plussign, separators));
     str.replace(QChar(THIN_SP_CP), QString(THIN_SP_HTML));
@@ -132,7 +153,7 @@ QString MagmelldollarUnits::formatHtmlWithUnit(int unit, const CAmount& amount, 
 }
 
 
-bool MagmelldollarUnits::parse(int unit, const QString &value, CAmount *val_out)
+bool BitcoinUnits::parse(int unit, const QString &value, CAmount *val_out)
 {
     if(!valid(unit) || value.isEmpty())
         return false; // Refuse to parse invalid unit or empty string
@@ -171,23 +192,23 @@ bool MagmelldollarUnits::parse(int unit, const QString &value, CAmount *val_out)
     return ok;
 }
 
-QString MagmelldollarUnits::getAmountColumnTitle(int unit)
+QString BitcoinUnits::getAmountColumnTitle(int unit)
 {
     QString amountTitle = QObject::tr("Amount");
-    if (MagmelldollarUnits::valid(unit))
+    if (BitcoinUnits::valid(unit))
     {
-        amountTitle += " ("+MagmelldollarUnits::name(unit) + ")";
+        amountTitle += " ("+BitcoinUnits::shortName(unit) + ")";
     }
     return amountTitle;
 }
 
-int MagmelldollarUnits::rowCount(const QModelIndex &parent) const
+int BitcoinUnits::rowCount(const QModelIndex &parent) const
 {
     Q_UNUSED(parent);
     return unitlist.size();
 }
 
-QVariant MagmelldollarUnits::data(const QModelIndex &index, int role) const
+QVariant BitcoinUnits::data(const QModelIndex &index, int role) const
 {
     int row = index.row();
     if(row >= 0 && row < unitlist.size())
@@ -197,7 +218,7 @@ QVariant MagmelldollarUnits::data(const QModelIndex &index, int role) const
         {
         case Qt::EditRole:
         case Qt::DisplayRole:
-            return QVariant(name(unit));
+            return QVariant(longName(unit));
         case Qt::ToolTipRole:
             return QVariant(description(unit));
         case UnitRole:
@@ -207,7 +228,7 @@ QVariant MagmelldollarUnits::data(const QModelIndex &index, int role) const
     return QVariant();
 }
 
-CAmount MagmelldollarUnits::maxMoney()
+CAmount BitcoinUnits::maxMoney()
 {
     return MAX_MONEY;
 }

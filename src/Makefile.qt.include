@@ -1,98 +1,98 @@
-# Copyright (c) 2013-2016 The Magmelldollar Core developers
+# Copyright (c) 2013-2016 The Bitcoin Core developers
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
 bin_PROGRAMS += qt/magmelldollar-qt
-EXTRA_LIBRARIES += qt/libmagmelldollarqt.a
+EXTRA_LIBRARIES += qt/libbitcoinqt.a
 
-# magmelldollar qt core #
+# bitcoin qt core #
 QT_TS = \
-  qt/locale/magmelldollar_af.ts \
-  qt/locale/magmelldollar_af_ZA.ts \
-  qt/locale/magmelldollar_ar.ts \
-  qt/locale/magmelldollar_be_BY.ts \
-  qt/locale/magmelldollar_bg_BG.ts \
-  qt/locale/magmelldollar_bg.ts \
-  qt/locale/magmelldollar_ca_ES.ts \
-  qt/locale/magmelldollar_ca.ts \
-  qt/locale/magmelldollar_ca@valencia.ts \
-  qt/locale/magmelldollar_cs_CZ.ts \
-  qt/locale/magmelldollar_cs.ts \
-  qt/locale/magmelldollar_cy.ts \
-  qt/locale/magmelldollar_da.ts \
-  qt/locale/magmelldollar_de.ts \
-  qt/locale/magmelldollar_el_GR.ts \
-  qt/locale/magmelldollar_el.ts \
-  qt/locale/magmelldollar_en_GB.ts \
-  qt/locale/magmelldollar_en.ts \
-  qt/locale/magmelldollar_eo.ts \
-  qt/locale/magmelldollar_es_AR.ts \
-  qt/locale/magmelldollar_es_CL.ts \
-  qt/locale/magmelldollar_es_CO.ts \
-  qt/locale/magmelldollar_es_DO.ts \
-  qt/locale/magmelldollar_es_ES.ts \
-  qt/locale/magmelldollar_es_MX.ts \
-  qt/locale/magmelldollar_es.ts \
-  qt/locale/magmelldollar_es_UY.ts \
-  qt/locale/magmelldollar_es_VE.ts \
-  qt/locale/magmelldollar_et.ts \
-  qt/locale/magmelldollar_eu_ES.ts \
-  qt/locale/magmelldollar_fa_IR.ts \
-  qt/locale/magmelldollar_fa.ts \
-  qt/locale/magmelldollar_fi.ts \
-  qt/locale/magmelldollar_fr_CA.ts \
-  qt/locale/magmelldollar_fr_FR.ts \
-  qt/locale/magmelldollar_fr.ts \
-  qt/locale/magmelldollar_gl.ts \
-  qt/locale/magmelldollar_he.ts \
-  qt/locale/magmelldollar_hi_IN.ts \
-  qt/locale/magmelldollar_hr.ts \
-  qt/locale/magmelldollar_hu.ts \
-  qt/locale/magmelldollar_id_ID.ts \
-  qt/locale/magmelldollar_it_IT.ts \
-  qt/locale/magmelldollar_it.ts \
-  qt/locale/magmelldollar_ja.ts \
-  qt/locale/magmelldollar_ka.ts \
-  qt/locale/magmelldollar_kk_KZ.ts \
-  qt/locale/magmelldollar_ko_KR.ts \
-  qt/locale/magmelldollar_ku_IQ.ts \
-  qt/locale/magmelldollar_ky.ts \
-  qt/locale/magmelldollar_la.ts \
-  qt/locale/magmelldollar_lt.ts \
-  qt/locale/magmelldollar_lv_LV.ts \
-  qt/locale/magmelldollar_mk_MK.ts \
-  qt/locale/magmelldollar_mn.ts \
-  qt/locale/magmelldollar_ms_MY.ts \
-  qt/locale/magmelldollar_nb.ts \
-  qt/locale/magmelldollar_ne.ts \
-  qt/locale/magmelldollar_nl.ts \
-  qt/locale/magmelldollar_pam.ts \
-  qt/locale/magmelldollar_pl.ts \
-  qt/locale/magmelldollar_pt_BR.ts \
-  qt/locale/magmelldollar_pt_PT.ts \
-  qt/locale/magmelldollar_ro_RO.ts \
-  qt/locale/magmelldollar_ro.ts \
-  qt/locale/magmelldollar_ru_RU.ts \
-  qt/locale/magmelldollar_ru.ts \
-  qt/locale/magmelldollar_sk.ts \
-  qt/locale/magmelldollar_sl_SI.ts \
-  qt/locale/magmelldollar_sq.ts \
-  qt/locale/magmelldollar_sr@latin.ts \
-  qt/locale/magmelldollar_sr.ts \
-  qt/locale/magmelldollar_sv.ts \
-  qt/locale/magmelldollar_ta.ts \
-  qt/locale/magmelldollar_th_TH.ts \
-  qt/locale/magmelldollar_tr_TR.ts \
-  qt/locale/magmelldollar_tr.ts \
-  qt/locale/magmelldollar_uk.ts \
-  qt/locale/magmelldollar_ur_PK.ts \
-  qt/locale/magmelldollar_uz@Cyrl.ts \
-  qt/locale/magmelldollar_vi.ts \
-  qt/locale/magmelldollar_vi_VN.ts \
-  qt/locale/magmelldollar_zh_CN.ts \
-  qt/locale/magmelldollar_zh_HK.ts \
-  qt/locale/magmelldollar_zh.ts \
-  qt/locale/magmelldollar_zh_TW.ts
+  qt/locale/bitcoin_af.ts \
+  qt/locale/bitcoin_af_ZA.ts \
+  qt/locale/bitcoin_ar.ts \
+  qt/locale/bitcoin_be_BY.ts \
+  qt/locale/bitcoin_bg_BG.ts \
+  qt/locale/bitcoin_bg.ts \
+  qt/locale/bitcoin_ca_ES.ts \
+  qt/locale/bitcoin_ca.ts \
+  qt/locale/bitcoin_ca@valencia.ts \
+  qt/locale/bitcoin_cs.ts \
+  qt/locale/bitcoin_cy.ts \
+  qt/locale/bitcoin_da.ts \
+  qt/locale/bitcoin_de.ts \
+  qt/locale/bitcoin_el_GR.ts \
+  qt/locale/bitcoin_el.ts \
+  qt/locale/bitcoin_en_GB.ts \
+  qt/locale/bitcoin_en.ts \
+  qt/locale/bitcoin_eo.ts \
+  qt/locale/bitcoin_es_AR.ts \
+  qt/locale/bitcoin_es_CL.ts \
+  qt/locale/bitcoin_es_CO.ts \
+  qt/locale/bitcoin_es_DO.ts \
+  qt/locale/bitcoin_es_ES.ts \
+  qt/locale/bitcoin_es_MX.ts \
+  qt/locale/bitcoin_es.ts \
+  qt/locale/bitcoin_es_UY.ts \
+  qt/locale/bitcoin_es_VE.ts \
+  qt/locale/bitcoin_et_EE.ts \
+  qt/locale/bitcoin_et.ts \
+  qt/locale/bitcoin_eu_ES.ts \
+  qt/locale/bitcoin_fa_IR.ts \
+  qt/locale/bitcoin_fa.ts \
+  qt/locale/bitcoin_fi.ts \
+  qt/locale/bitcoin_fr_CA.ts \
+  qt/locale/bitcoin_fr_FR.ts \
+  qt/locale/bitcoin_fr.ts \
+  qt/locale/bitcoin_gl.ts \
+  qt/locale/bitcoin_he.ts \
+  qt/locale/bitcoin_hi_IN.ts \
+  qt/locale/bitcoin_hr.ts \
+  qt/locale/bitcoin_hu.ts \
+  qt/locale/bitcoin_id_ID.ts \
+  qt/locale/bitcoin_it_IT.ts \
+  qt/locale/bitcoin_it.ts \
+  qt/locale/bitcoin_ja.ts \
+  qt/locale/bitcoin_ka.ts \
+  qt/locale/bitcoin_kk_KZ.ts \
+  qt/locale/bitcoin_ko_KR.ts \
+  qt/locale/bitcoin_ku_IQ.ts \
+  qt/locale/bitcoin_ky.ts \
+  qt/locale/bitcoin_la.ts \
+  qt/locale/bitcoin_lt.ts \
+  qt/locale/bitcoin_lv_LV.ts \
+  qt/locale/bitcoin_mk_MK.ts \
+  qt/locale/bitcoin_mn.ts \
+  qt/locale/bitcoin_ms_MY.ts \
+  qt/locale/bitcoin_nb.ts \
+  qt/locale/bitcoin_ne.ts \
+  qt/locale/bitcoin_nl.ts \
+  qt/locale/bitcoin_pam.ts \
+  qt/locale/bitcoin_pl.ts \
+  qt/locale/bitcoin_pt_BR.ts \
+  qt/locale/bitcoin_pt_PT.ts \
+  qt/locale/bitcoin_ro_RO.ts \
+  qt/locale/bitcoin_ro.ts \
+  qt/locale/bitcoin_ru_RU.ts \
+  qt/locale/bitcoin_ru.ts \
+  qt/locale/bitcoin_sk.ts \
+  qt/locale/bitcoin_sl_SI.ts \
+  qt/locale/bitcoin_sq.ts \
+  qt/locale/bitcoin_sr@latin.ts \
+  qt/locale/bitcoin_sr.ts \
+  qt/locale/bitcoin_sv.ts \
+  qt/locale/bitcoin_ta.ts \
+  qt/locale/bitcoin_th_TH.ts \
+  qt/locale/bitcoin_tr_TR.ts \
+  qt/locale/bitcoin_tr.ts \
+  qt/locale/bitcoin_uk.ts \
+  qt/locale/bitcoin_ur_PK.ts \
+  qt/locale/bitcoin_uz@Cyrl.ts \
+  qt/locale/bitcoin_vi.ts \
+  qt/locale/bitcoin_vi_VN.ts \
+  qt/locale/bitcoin_zh_CN.ts \
+  qt/locale/bitcoin_zh_HK.ts \
+  qt/locale/bitcoin_zh.ts \
+  qt/locale/bitcoin_zh_TW.ts
 
 QT_FORMS_UI = \
   qt/forms/addressbookpage.ui \
@@ -101,6 +101,7 @@ QT_FORMS_UI = \
   qt/forms/editaddressdialog.ui \
   qt/forms/helpmessagedialog.ui \
   qt/forms/intro.ui \
+  qt/forms/modaloverlay.ui \
   qt/forms/openuridialog.ui \
   qt/forms/optionsdialog.ui \
   qt/forms/overviewpage.ui \
@@ -117,10 +118,11 @@ QT_MOC_CPP = \
   qt/moc_addresstablemodel.cpp \
   qt/moc_askpassphrasedialog.cpp \
   qt/moc_bantablemodel.cpp \
-  qt/moc_magmelldollaraddressvalidator.cpp \
-  qt/moc_magmelldollaramountfield.cpp \
-  qt/moc_magmelldollargui.cpp \
-  qt/moc_magmelldollarunits.cpp \
+  qt/moc_bitcoinaddressvalidator.cpp \
+  qt/moc_bitcoinamountfield.cpp \
+  qt/moc_bitcoingui.cpp \
+  qt/moc_bitcoinunits.cpp \
+  qt/moc_callback.cpp \
   qt/moc_clientmodel.cpp \
   qt/moc_coincontroldialog.cpp \
   qt/moc_coincontroltreewidget.cpp \
@@ -130,6 +132,7 @@ QT_MOC_CPP = \
   qt/moc_intro.cpp \
   qt/moc_macdockiconhandler.cpp \
   qt/moc_macnotificationhandler.cpp \
+  qt/moc_modaloverlay.cpp \
   qt/moc_notificator.cpp \
   qt/moc_openuridialog.cpp \
   qt/moc_optionsdialog.cpp \
@@ -163,16 +166,17 @@ BITCOIN_MM = \
   qt/macnotificationhandler.mm
 
 QT_MOC = \
-  qt/magmelldollar.moc \
-  qt/magmelldollaramountfield.moc \
+  qt/bitcoin.moc \
+  qt/bitcoinamountfield.moc \
+  qt/callback.moc \
   qt/intro.moc \
   qt/overviewpage.moc \
   qt/rpcconsole.moc
 
-QT_QRC_CPP = qt/qrc_magmelldollar.cpp
-QT_QRC = qt/magmelldollar.qrc
-QT_QRC_LOCALE_CPP = qt/qrc_magmelldollar_locale.cpp
-QT_QRC_LOCALE = qt/magmelldollar_locale.qrc
+QT_QRC_CPP = qt/qrc_bitcoin.cpp
+QT_QRC = qt/bitcoin.qrc
+QT_QRC_LOCALE_CPP = qt/qrc_bitcoin_locale.cpp
+QT_QRC_LOCALE = qt/bitcoin_locale.qrc
 
 PROTOBUF_CC = qt/paymentrequest.pb.cc
 PROTOBUF_H = qt/paymentrequest.pb.h
@@ -183,10 +187,11 @@ BITCOIN_QT_H = \
   qt/addresstablemodel.h \
   qt/askpassphrasedialog.h \
   qt/bantablemodel.h \
-  qt/magmelldollaraddressvalidator.h \
-  qt/magmelldollaramountfield.h \
-  qt/magmelldollargui.h \
-  qt/magmelldollarunits.h \
+  qt/bitcoinaddressvalidator.h \
+  qt/bitcoinamountfield.h \
+  qt/bitcoingui.h \
+  qt/bitcoinunits.h \
+  qt/callback.h \
   qt/clientmodel.h \
   qt/coincontroldialog.h \
   qt/coincontroltreewidget.h \
@@ -197,6 +202,7 @@ BITCOIN_QT_H = \
   qt/intro.h \
   qt/macdockiconhandler.h \
   qt/macnotificationhandler.h \
+  qt/modaloverlay.h \
   qt/networkstyle.h \
   qt/notificator.h \
   qt/openuridialog.h \
@@ -236,9 +242,9 @@ RES_ICONS = \
   qt/res/icons/address-book.png \
   qt/res/icons/about.png \
   qt/res/icons/about_qt.png \
-  qt/res/icons/magmelldollar.ico \
-  qt/res/icons/magmelldollar_testnet.ico \
-  qt/res/icons/magmelldollar.png \
+  qt/res/icons/bitcoin.ico \
+  qt/res/icons/bitcoin_testnet.ico \
+  qt/res/icons/bitcoin.png \
   qt/res/icons/chevron.png \
   qt/res/icons/clock1.png \
   qt/res/icons/clock2.png \
@@ -262,13 +268,18 @@ RES_ICONS = \
   qt/res/icons/filesave.png \
   qt/res/icons/fontbigger.png \
   qt/res/icons/fontsmaller.png \
+  qt/res/icons/hd_disabled.png \
+  qt/res/icons/hd_enabled.png \
   qt/res/icons/history.png \
   qt/res/icons/info.png \
   qt/res/icons/key.png \
+  qt/res/icons/magmelldollar_splash.png \
   qt/res/icons/lock_closed.png \
   qt/res/icons/lock_open.png \
+  qt/res/icons/network_disabled.png \
   qt/res/icons/open.png \
   qt/res/icons/overview.png \
+  qt/res/icons/proxy.png \
   qt/res/icons/quit.png \
   qt/res/icons/receive.png \
   qt/res/icons/remove.png \
@@ -276,25 +287,26 @@ RES_ICONS = \
   qt/res/icons/synced.png \
   qt/res/icons/transaction0.png \
   qt/res/icons/transaction2.png \
+  qt/res/icons/transaction_abandoned.png \
   qt/res/icons/transaction_conflicted.png \
   qt/res/icons/tx_inout.png \
   qt/res/icons/tx_input.png \
   qt/res/icons/tx_output.png \
   qt/res/icons/tx_mined.png \
   qt/res/icons/warning.png \
-  qt/res/icons/verify.png \
-  qt/res/icons/transaction_abandoned.png
+  qt/res/icons/verify.png
 
 BITCOIN_QT_BASE_CPP = \
   qt/bantablemodel.cpp \
-  qt/magmelldollaraddressvalidator.cpp \
-  qt/magmelldollaramountfield.cpp \
-  qt/magmelldollargui.cpp \
-  qt/magmelldollarunits.cpp \
+  qt/bitcoinaddressvalidator.cpp \
+  qt/bitcoinamountfield.cpp \
+  qt/bitcoingui.cpp \
+  qt/bitcoinunits.cpp \
   qt/clientmodel.cpp \
   qt/csvmodelwriter.cpp \
   qt/guiutil.cpp \
   qt/intro.cpp \
+  qt/modaloverlay.cpp \
   qt/networkstyle.cpp \
   qt/notificator.cpp \
   qt/optionsdialog.cpp \
@@ -346,23 +358,23 @@ if ENABLE_WALLET
 BITCOIN_QT_CPP += $(BITCOIN_QT_WALLET_CPP)
 endif
 
-RES_IMAGES = 
+RES_IMAGES =
 
-RES_MOVIES = $(wildcard qt/res/movies/spinner-*.png)
+RES_MOVIES = $(wildcard $(srcdir)/qt/res/movies/spinner-*.png)
 
-BITCOIN_RC = qt/res/magmelldollar-qt-res.rc
+BITCOIN_RC = qt/res/bitcoin-qt-res.rc
 
-BITCOIN_QT_INCLUDES = -I$(builddir)/qt -I$(srcdir)/qt -I$(srcdir)/qt/forms \
-  -I$(builddir)/qt/forms -DQT_NO_KEYWORDS
+BITCOIN_QT_INCLUDES = -DQT_NO_KEYWORDS
 
-qt_libmagmelldollarqt_a_CPPFLAGS = $(AM_CPPFLAGS) $(BITCOIN_INCLUDES) $(BITCOIN_QT_INCLUDES) \
+qt_libbitcoinqt_a_CPPFLAGS = $(AM_CPPFLAGS) $(BITCOIN_INCLUDES) $(BITCOIN_QT_INCLUDES) \
   $(QT_INCLUDES) $(QT_DBUS_INCLUDES) $(PROTOBUF_CFLAGS) $(QR_CFLAGS)
-qt_libmagmelldollarqt_a_CXXFLAGS = $(AM_CXXFLAGS) $(QT_PIE_FLAGS)
+qt_libbitcoinqt_a_CXXFLAGS = $(AM_CXXFLAGS) $(QT_PIE_FLAGS)
+qt_libbitcoinqt_a_OBJCXXFLAGS = $(AM_OBJCXXFLAGS) $(QT_PIE_FLAGS)
 
-qt_libmagmelldollarqt_a_SOURCES = $(BITCOIN_QT_CPP) $(BITCOIN_QT_H) $(QT_FORMS_UI) \
+qt_libbitcoinqt_a_SOURCES = $(BITCOIN_QT_CPP) $(BITCOIN_QT_H) $(QT_FORMS_UI) \
   $(QT_QRC) $(QT_QRC_LOCALE) $(QT_TS) $(PROTOBUF_PROTO) $(RES_ICONS) $(RES_IMAGES) $(RES_MOVIES)
 
-nodist_qt_libmagmelldollarqt_a_SOURCES = $(QT_MOC_CPP) $(QT_MOC) $(PROTOBUF_CC) \
+nodist_qt_libbitcoinqt_a_SOURCES = $(QT_MOC_CPP) $(QT_MOC) $(PROTOBUF_CC) \
   $(PROTOBUF_H) $(QT_QRC_CPP) $(QT_QRC_LOCALE_CPP)
 
 # forms/foo.h -> forms/ui_foo.h
@@ -371,71 +383,71 @@ QT_FORMS_H=$(join $(dir $(QT_FORMS_UI)),$(addprefix ui_, $(notdir $(QT_FORMS_UI:
 # Most files will depend on the forms and moc files as includes. Generate them
 # before anything else.
 $(QT_MOC): $(QT_FORMS_H)
-$(qt_libmagmelldollarqt_a_OBJECTS) $(qt_magmelldollar_qt_OBJECTS) : | $(QT_MOC)
+$(qt_libbitcoinqt_a_OBJECTS) $(qt_magmelldollar_qt_OBJECTS) : | $(QT_MOC)
 
 #Generating these with a half-written protobuf header leads to wacky results.
 #This makes sure it's done.
 $(QT_MOC): $(PROTOBUF_H)
 $(QT_MOC_CPP): $(PROTOBUF_H)
 
-# magmelldollar-qt binary #
+# bitcoin-qt binary #
 qt_magmelldollar_qt_CPPFLAGS = $(AM_CPPFLAGS) $(BITCOIN_INCLUDES) $(BITCOIN_QT_INCLUDES) \
   $(QT_INCLUDES) $(PROTOBUF_CFLAGS) $(QR_CFLAGS)
 qt_magmelldollar_qt_CXXFLAGS = $(AM_CXXFLAGS) $(QT_PIE_FLAGS)
 
-qt_magmelldollar_qt_SOURCES = qt/magmelldollar.cpp
+qt_magmelldollar_qt_SOURCES = qt/bitcoin.cpp
 if TARGET_DARWIN
   qt_magmelldollar_qt_SOURCES += $(BITCOIN_MM)
 endif
 if TARGET_WINDOWS
   qt_magmelldollar_qt_SOURCES += $(BITCOIN_RC)
 endif
-qt_magmelldollar_qt_LDADD = qt/libmagmelldollarqt.a $(LIBBITCOIN_SERVER)
+qt_magmelldollar_qt_LDADD = qt/libbitcoinqt.a $(LIBBITCOIN_SERVER)
 if ENABLE_WALLET
-qt_magmelldollar_qt_LDADD += $(LIBBITCOIN_WALLET)
+qt_magmelldollar_qt_LDADD += $(LIBBITCOIN_UTIL) $(LIBBITCOIN_WALLET)
 endif
 if ENABLE_ZMQ
 qt_magmelldollar_qt_LDADD += $(LIBBITCOIN_ZMQ) $(ZMQ_LIBS)
 endif
-qt_magmelldollar_qt_LDADD += $(LIBBITCOIN_CLI) $(LIBBITCOIN_COMMON) $(LIBBITCOIN_UTIL) $(LIBBITCOIN_CONSENSUS) $(LIBBITCOIN_CRYPTO) $(LIBUNIVALUE) $(LIBLEVELDB) $(LIBMEMENV) \
+qt_magmelldollar_qt_LDADD += $(LIBBITCOIN_CLI) $(LIBBITCOIN_COMMON) $(LIBBITCOIN_UTIL) $(LIBBITCOIN_CONSENSUS) $(LIBBITCOIN_CRYPTO) $(LIBUNIVALUE) $(LIBLEVELDB) $(LIBLEVELDB_SSE42) $(LIBMEMENV) \
   $(BOOST_LIBS) $(QT_LIBS) $(QT_DBUS_LIBS) $(QR_LIBS) $(PROTOBUF_LIBS) $(BDB_LIBS) $(SSL_LIBS) $(CRYPTO_LIBS) $(MINIUPNPC_LIBS) $(LIBSECP256K1) \
   $(EVENT_PTHREADS_LIBS) $(EVENT_LIBS)
 qt_magmelldollar_qt_LDFLAGS = $(RELDFLAGS) $(AM_LDFLAGS) $(QT_LDFLAGS) $(LIBTOOL_APP_LDFLAGS)
-qt_magmelldollar_qt_LIBTOOLFLAGS = --tag CXX
+qt_magmelldollar_qt_LIBTOOLFLAGS = $(AM_LIBTOOLFLAGS) --tag CXX
 
 #locale/foo.ts -> locale/foo.qm
 QT_QM=$(QT_TS:.ts=.qm)
 
 SECONDARY: $(QT_QM)
 
-$(srcdir)/qt/magmelldollarstrings.cpp: $(libmagmelldollar_server_a_SOURCES) $(libmagmelldollar_wallet_a_SOURCES)
+$(srcdir)/qt/bitcoinstrings.cpp: $(libbitcoin_server_a_SOURCES) $(libbitcoin_wallet_a_SOURCES) $(libbitcoin_common_a_SOURCES) $(libbitcoin_zmq_a_SOURCES) $(libbitcoin_consensus_a_SOURCES) $(libbitcoin_util_a_SOURCES)
 	@test -n $(XGETTEXT) || echo "xgettext is required for updating translations"
 	$(AM_V_GEN) cd $(srcdir); XGETTEXT=$(XGETTEXT) PACKAGE_NAME="$(PACKAGE_NAME)" COPYRIGHT_HOLDERS="$(COPYRIGHT_HOLDERS)" COPYRIGHT_HOLDERS_SUBSTITUTION="$(COPYRIGHT_HOLDERS_SUBSTITUTION)" $(PYTHON) ../share/qt/extract_strings_qt.py $^
 
-translate: $(srcdir)/qt/magmelldollarstrings.cpp $(QT_FORMS_UI) $(QT_FORMS_UI) $(BITCOIN_QT_BASE_CPP) $(BITCOIN_QT_WINDOWS_CPP) $(BITCOIN_QT_WALLET_CPP) $(BITCOIN_QT_H) $(BITCOIN_MM)
+translate: $(srcdir)/qt/bitcoinstrings.cpp $(QT_FORMS_UI) $(QT_FORMS_UI) $(BITCOIN_QT_BASE_CPP) qt/bitcoin.cpp $(BITCOIN_QT_WINDOWS_CPP) $(BITCOIN_QT_WALLET_CPP) $(BITCOIN_QT_H) $(BITCOIN_MM)
 	@test -n $(LUPDATE) || echo "lupdate is required for updating translations"
-	$(AM_V_GEN) QT_SELECT=$(QT_SELECT) $(LUPDATE) $^ -locations relative -no-obsolete -ts $(srcdir)/qt/locale/magmelldollar_en.ts
+	$(AM_V_GEN) QT_SELECT=$(QT_SELECT) $(LUPDATE) $^ -locations relative -no-obsolete -ts $(srcdir)/qt/locale/bitcoin_en.ts
 
 $(QT_QRC_LOCALE_CPP): $(QT_QRC_LOCALE) $(QT_QM)
 	@test -f $(RCC)
 	@cp -f $< $(@D)/temp_$(<F)
-	$(AM_V_GEN) QT_SELECT=$(QT_SELECT) $(RCC) -name magmelldollar_locale $(@D)/temp_$(<F) | \
+	$(AM_V_GEN) QT_SELECT=$(QT_SELECT) $(RCC) -name bitcoin_locale $(@D)/temp_$(<F) | \
 	  $(SED) -e '/^\*\*.*Created:/d' -e '/^\*\*.*by:/d' > $@
 	@rm $(@D)/temp_$(<F)
 
 $(QT_QRC_CPP): $(QT_QRC) $(QT_FORMS_H) $(RES_ICONS) $(RES_IMAGES) $(RES_MOVIES) $(PROTOBUF_H)
 	@test -f $(RCC)
-	$(AM_V_GEN) QT_SELECT=$(QT_SELECT) $(RCC) -name magmelldollar $< | \
+	$(AM_V_GEN) QT_SELECT=$(QT_SELECT) $(RCC) -name bitcoin $< | \
 	  $(SED) -e '/^\*\*.*Created:/d' -e '/^\*\*.*by:/d' > $@
 
-CLEAN_QT = $(nodist_qt_libmagmelldollarqt_a_SOURCES) $(QT_QM) $(QT_FORMS_H) qt/*.gcda qt/*.gcno
+CLEAN_QT = $(nodist_qt_libbitcoinqt_a_SOURCES) $(QT_QM) $(QT_FORMS_H) qt/*.gcda qt/*.gcno qt/temp_bitcoin_locale.qrc
 
 CLEANFILES += $(CLEAN_QT)
 
-magmelldollar_qt_clean: FORCE
-	rm -f $(CLEAN_QT) $(qt_libmagmelldollarqt_a_OBJECTS) $(qt_magmelldollar_qt_OBJECTS) qt/magmelldollar-qt$(EXEEXT) $(LIBBITCOINQT)
+bitcoin_qt_clean: FORCE
+	rm -f $(CLEAN_QT) $(qt_libbitcoinqt_a_OBJECTS) $(qt_magmelldollar_qt_OBJECTS) qt/magmelldollar-qt$(EXEEXT) $(LIBBITCOINQT)
 
-magmelldollar_qt : qt/magmelldollar-qt$(EXEEXT)
+bitcoin_qt : qt/magmelldollar-qt$(EXEEXT)
 
 ui_%.h: %.ui
 	@test -f $(UIC)

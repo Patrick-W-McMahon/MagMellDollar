@@ -5,6 +5,10 @@
         <source>Create a new address</source>
         <translation>Δημιουργία νέου λογαριασμού</translation>
     </message>
+    <message>
+        <source>&amp;Copy</source>
+        <translation>&amp;Αντιγραφή</translation>
+    </message>
     </context>
 <context>
     <name>AddressTableModel</name>
@@ -28,7 +32,7 @@
     <name>BanTableModel</name>
     </context>
 <context>
-    <name>MagmelldollarGUI</name>
+    <name>BitcoinGUI</name>
     <message>
         <source>Quit application</source>
         <translation>Κλείσιμο εφαρμογής</translation>
@@ -82,6 +86,9 @@
     </message>
     </context>
 <context>
+    <name>ModalOverlay</name>
+    </context>
+<context>
     <name>OpenURIDialog</name>
     </context>
 <context>
@@ -89,6 +96,10 @@
     <message>
         <source>W&amp;allet</source>
         <translation>Πορτοφόλι</translation>
+    </message>
+    <message>
+        <source>Error</source>
+        <translation>Σφάλμα</translation>
     </message>
     </context>
 <context>
@@ -102,6 +113,9 @@
     </context>
 <context>
     <name>QObject</name>
+    </context>
+<context>
+    <name>QObject::QObject</name>
     </context>
 <context>
     <name>QRImageWidget</name>
@@ -122,6 +136,10 @@
     </context>
 <context>
     <name>ReceiveRequestDialog</name>
+    <message>
+        <source>Wallet</source>
+        <translation>Πορτοφόλι</translation>
+    </message>
     </context>
 <context>
     <name>RecentRequestsTableModel</name>
@@ -184,7 +202,7 @@
     <name>WalletView</name>
     </context>
 <context>
-    <name>magmelldollar-core</name>
+    <name>bitcoin-core</name>
     <message>
         <source>Insufficient funds</source>
         <translation>Κεφάλαια μη επαρκή</translation>
