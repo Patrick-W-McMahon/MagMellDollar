@@ -1,5 +1,5 @@
-Magmelldollar Core 0.13.2
-=====================
+Magmelldollar Core
+=============
 
 Intro
 -----

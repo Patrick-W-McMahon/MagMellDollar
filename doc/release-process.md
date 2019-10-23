@@ -3,20 +3,33 @@ Release Process
 
 Before every release candidate:
 
-* Update translations (ping wumpus on IRC) see [translation_process.md](https://github.com/magmelldollar/magmelldollar/blob/master/doc/translation_process.md#synchronising-translations).
+* Update translations (ping wumpus on IRC) see [translation_process.md](https://github.com/bitcoin/bitcoin/blob/master/doc/translation_process.md#synchronising-translations).
+
+* Update manpages, see [gen-manpages.sh](https://github.com/magmelldollar-project/magmelldollar/blob/master/contrib/devtools/README.md#gen-manpagessh).
 
 Before every minor and major release:
 
 * Update [bips.md](bips.md) to account for changes since the last release.
-* Update version in sources (see below)
+* Update version in `configure.ac` (don't forget to set `CLIENT_VERSION_IS_RELEASE` to `true`)
 * Write release notes (see below)
 * Update `src/chainparams.cpp` nMinimumChainWork with information from the getblockchaininfo rpc.
+* Update `src/chainparams.cpp` defaultAssumeValid with information from the getblockhash rpc.
+  - The selected value must not be orphaned so it may be useful to set the value two blocks back from the tip.
+  - Testnet should be set some tens of thousands back from the tip due to reorgs there.
+  - This update should be reviewed with a reindex-chainstate with assumevalid=0 to catch any defect
+     that causes rejection of blocks in the past history.
 
 Before every major release:
 
-* Update hardcoded [seeds](/contrib/seeds/README.md), see [this pull request](https://github.com/magmelldollar/magmelldollar/pull/7415) for an example.
+* Update hardcoded [seeds](/contrib/seeds/README.md), see [this pull request](https://github.com/bitcoin/bitcoin/pull/7415) for an example.
+* Update [`BLOCK_CHAIN_SIZE`](/src/qt/intro.cpp) to the current size plus some overhead.
+* Update `src/chainparams.cpp` chainTxData with statistics about the transaction count and rate. Use the output of the RPC `getchaintxstats`, see
+  [this pull request](https://github.com/bitcoin/bitcoin/pull/12270) for an example. Reviewers can verify the results by running `getchaintxstats <window_block_count> <window_last_block_hash>` with the `window_block_count` and `window_last_block_hash` from your output.
+* Update version of `contrib/gitian-descriptors/*.yml`: usually one'd want to do this on master after branching off the release - but be sure to at least do it before a new major release
 
 ### First time / New builders
+
+If you're using the automated script (found in [contrib/gitian-build.py](/contrib/gitian-build.py)), then at this point you should run it with the "--setup" command. Otherwise ignore this.
 
 Check out the source code in the following directory hierarchy.
 
@@ -26,23 +39,7 @@ Check out the source code in the following directory hierarchy.
     git clone https://github.com/devrandom/gitian-builder.git
     git clone https://github.com/magmelldollar-project/magmelldollar.git
 
-### Magmelldollar maintainers/release engineers, update version in sources
-
-Update the following:
-
-- `configure.ac`:
-    - `_CLIENT_VERSION_MAJOR`
-    - `_CLIENT_VERSION_MINOR`
-    - `_CLIENT_VERSION_REVISION`
-    - Don't forget to set `_CLIENT_VERSION_IS_RELEASE` to `true`
-- `src/clientversion.h`: (this mirrors `configure.ac` - see issue #3539)
-    - `CLIENT_VERSION_MAJOR`
-    - `CLIENT_VERSION_MINOR`
-    - `CLIENT_VERSION_REVISION`
-    - Don't forget to set `CLIENT_VERSION_IS_RELEASE` to `true`
-- `doc/README.md` and `doc/README_windows.txt`
-- `doc/Doxyfile`: `PROJECT_NUMBER` contains the full version
-- `contrib/gitian-descriptors/*.yml`: usually one'd want to do this on master after branching off the release - but be sure to at least do it before a new major release
+### Magmelldollar maintainers/release engineers, suggestion for writing release notes
 
 Write release notes. git shortlog helps a lot, for example:
 
@@ -53,7 +50,7 @@ and sort them into categories based on labels)
 
 Generate list of authors:
 
-    git log --format='%aN' "$*" | sort -ui | sed -e 's/^/- /'
+    git log --format='- %aN' v(current version, e.g. 0.16.0)..v(new version, e.g. 0.16.1) | sort -fiu
 
 Tag version (or release candidate) in git
 
@@ -61,10 +58,12 @@ Tag version (or release candidate) in git
 
 ### Setup and perform Gitian builds
 
+If you're using the automated script (found in [contrib/gitian-build.py](/contrib/gitian-build.py)), then at this point you should run it with the "--build" command. Otherwise ignore this.
+
 Setup Gitian descriptors:
 
     pushd ./magmelldollar
-    export SIGNER=(your Gitian key, ie bluematt, sipa, etc)
+    export SIGNER="(your Gitian key, ie bluematt, sipa, etc)"
     export VERSION=(new version, e.g. 0.8.0)
     git fetch
     git checkout v${VERSION}
@@ -86,15 +85,17 @@ Ensure gitian-builder is up-to-date:
 
     pushd ./gitian-builder
     mkdir -p inputs
-    wget -P inputs https://magmelldollarcore.org/cfields/osslsigncode-Backports-to-1.7.1.patch
+    wget -P inputs https://bitcoincore.org/cfields/osslsigncode-Backports-to-1.7.1.patch
     wget -P inputs http://downloads.sourceforge.net/project/osslsigncode/osslsigncode/osslsigncode-1.7.1.tar.gz
     popd
 
-Create the OS X SDK tarball, see the [OS X readme](README_osx.md) for details, and copy it into the inputs directory.
+Create the macOS SDK tarball, see the [macOS readme](README_osx.md) for details, and copy it into the inputs directory.
 
 ### Optional: Seed the Gitian sources cache and offline git repositories
 
-By default, Gitian will fetch source files as needed. To cache them ahead of time:
+NOTE: Gitian is sometimes unable to download files. If you have errors, try the step below.
+
+By default, Gitian will fetch source files as needed. To cache them ahead of time, make sure you have checked out the tag you want to build in magmelldollar, then:
 
     pushd ./gitian-builder
     make -C ../magmelldollar/depends download SOURCES_PATH=`pwd`/cache/common
@@ -110,20 +111,23 @@ NOTE: Offline builds must use the --url flag to ensure Gitian fetches only from 
 
 The gbuild invocations below <b>DO NOT DO THIS</b> by default.
 
-### Build and sign Magmelldollar Core for Linux, Windows, and OS X:
+### Build and sign Magmelldollar Core for Linux, Windows, and macOS:
 
+    export GITIAN_THREADS=2
+    export GITIAN_MEMORY=3000
+    
     pushd ./gitian-builder
-    ./bin/gbuild --memory 3000 --commit magmelldollar=v${VERSION} ../magmelldollar/contrib/gitian-descriptors/gitian-linux.yml
-    ./bin/gsign --signer $SIGNER --release ${VERSION}-linux --destination ../gitian.sigs.ltc/ ../magmelldollar/contrib/gitian-descriptors/gitian-linux.yml
+    ./bin/gbuild --num-make $GITIAN_THREADS --memory $GITIAN_MEMORY --commit magmelldollar=v${VERSION} ../magmelldollar/contrib/gitian-descriptors/gitian-linux.yml
+    ./bin/gsign --signer "$SIGNER" --release ${VERSION}-linux --destination ../gitian.sigs.ltc/ ../magmelldollar/contrib/gitian-descriptors/gitian-linux.yml
     mv build/out/magmelldollar-*.tar.gz build/out/src/magmelldollar-*.tar.gz ../
 
-    ./bin/gbuild --memory 3000 --commit magmelldollar=v${VERSION} ../magmelldollar/contrib/gitian-descriptors/gitian-win.yml
-    ./bin/gsign --signer $SIGNER --release ${VERSION}-win-unsigned --destination ../gitian.sigs.ltc/ ../magmelldollar/contrib/gitian-descriptors/gitian-win.yml
+    ./bin/gbuild --num-make $GITIAN_THREADS --memory $GITIAN_MEMORY --commit magmelldollar=v${VERSION} ../magmelldollar/contrib/gitian-descriptors/gitian-win.yml
+    ./bin/gsign --signer "$SIGNER" --release ${VERSION}-win-unsigned --destination ../gitian.sigs.ltc/ ../magmelldollar/contrib/gitian-descriptors/gitian-win.yml
     mv build/out/magmelldollar-*-win-unsigned.tar.gz inputs/magmelldollar-win-unsigned.tar.gz
     mv build/out/magmelldollar-*.zip build/out/magmelldollar-*.exe ../
 
-    ./bin/gbuild --memory 3000 --commit magmelldollar=v${VERSION} ../magmelldollar/contrib/gitian-descriptors/gitian-osx.yml
-    ./bin/gsign --signer $SIGNER --release ${VERSION}-osx-unsigned --destination ../gitian.sigs.ltc/ ../magmelldollar/contrib/gitian-descriptors/gitian-osx.yml
+    ./bin/gbuild --num-make $GITIAN_THREADS --memory $GITIAN_MEMORY --commit magmelldollar=v${VERSION} ../magmelldollar/contrib/gitian-descriptors/gitian-osx.yml
+    ./bin/gsign --signer "$SIGNER" --release ${VERSION}-osx-unsigned --destination ../gitian.sigs.ltc/ ../magmelldollar/contrib/gitian-descriptors/gitian-osx.yml
     mv build/out/magmelldollar-*-osx-unsigned.tar.gz inputs/magmelldollar-osx-unsigned.tar.gz
     mv build/out/magmelldollar-*.tar.gz build/out/magmelldollar-*.dmg ../
     popd
@@ -133,14 +137,12 @@ Build output expected:
   1. source tarball (`magmelldollar-${VERSION}.tar.gz`)
   2. linux 32-bit and 64-bit dist tarballs (`magmelldollar-${VERSION}-linux[32|64].tar.gz`)
   3. windows 32-bit and 64-bit unsigned installers and dist zips (`magmelldollar-${VERSION}-win[32|64]-setup-unsigned.exe`, `magmelldollar-${VERSION}-win[32|64].zip`)
-  4. OS X unsigned installer and dist tarball (`magmelldollar-${VERSION}-osx-unsigned.dmg`, `magmelldollar-${VERSION}-osx64.tar.gz`)
+  4. macOS unsigned installer and dist tarball (`magmelldollar-${VERSION}-osx-unsigned.dmg`, `magmelldollar-${VERSION}-osx64.tar.gz`)
   5. Gitian signatures (in `gitian.sigs.ltc/${VERSION}-<linux|{win,osx}-unsigned>/(your Gitian key)/`)
 
 ### Verify other gitian builders signatures to your own. (Optional)
 
-Add other gitian builders keys to your gpg keyring
-
-    gpg --import magmelldollar/contrib/gitian-keys/*.pgp
+Add other gitian builders keys to your gpg keyring, and/or refresh keys: See `../magmelldollar/contrib/gitian-keys/README.md`.
 
 Verify the signatures
 
@@ -155,23 +157,54 @@ Verify the signatures
 Commit your signature to gitian.sigs.ltc:
 
     pushd gitian.sigs.ltc
-    git add ${VERSION}-linux/${SIGNER}
-    git add ${VERSION}-win-unsigned/${SIGNER}
-    git add ${VERSION}-osx-unsigned/${SIGNER}
-    git commit -a
-    git push  # Assuming you can push to the gitian.sigs.ltc tree
+    git add ${VERSION}-linux/"${SIGNER}"
+    git add ${VERSION}-win-unsigned/"${SIGNER}"
+    git add ${VERSION}-osx-unsigned/"${SIGNER}"
+    git commit -m "Add ${VERSION} unsigned sigs for ${SIGNER}"
+    git push  # Assuming you can push to the gitian.sigs tree
     popd
 
-Wait for Windows/OS X detached signatures:
+Codesigner only: Create Windows/macOS detached signatures:
+- Only one person handles codesigning. Everyone else should skip to the next step.
+- Only once the Windows/macOS builds each have 3 matching signatures may they be signed with their respective release keys.
 
-- Once the Windows/OS X builds each have 3 matching signatures, they will be signed with their respective release keys.
+Codesigner only: Sign the macOS binary:
+
+    transfer magmelldollar-osx-unsigned.tar.gz to macOS for signing
+    tar xf magmelldollar-osx-unsigned.tar.gz
+    ./detached-sig-create.sh -s "Key ID"
+    Enter the keychain password and authorize the signature
+    Move signature-osx.tar.gz back to the gitian host
+
+Codesigner only: Sign the windows binaries:
+
+    tar xf magmelldollar-win-unsigned.tar.gz
+    ./detached-sig-create.sh -key /path/to/codesign.key
+    Enter the passphrase for the key when prompted
+    signature-win.tar.gz will be created
+
+Codesigner only: Commit the detached codesign payloads:
+
+    cd ~/magmelldollar-detached-sigs
+    checkout the appropriate branch for this release series
+    rm -rf *
+    tar xf signature-osx.tar.gz
+    tar xf signature-win.tar.gz
+    git add -a
+    git commit -m "point to ${VERSION}"
+    git tag -s v${VERSION} HEAD
+    git push the current branch and new tag
+
+Non-codesigners: wait for Windows/macOS detached signatures:
+
+- Once the Windows/macOS builds each have 3 matching signatures, they will be signed with their respective release keys.
 - Detached signatures will then be committed to the [magmelldollar-detached-sigs](https://github.com/magmelldollar-project/magmelldollar-detached-sigs) repository, which can be combined with the unsigned apps to create signed binaries.
 
-Create (and optionally verify) the signed OS X binary:
+Create (and optionally verify) the signed macOS binary:
 
     pushd ./gitian-builder
     ./bin/gbuild -i --commit signature=v${VERSION} ../magmelldollar/contrib/gitian-descriptors/gitian-osx-signer.yml
-    ./bin/gsign --signer $SIGNER --release ${VERSION}-osx-signed --destination ../gitian.sigs.ltc/ ../magmelldollar/contrib/gitian-descriptors/gitian-osx-signer.yml
+    ./bin/gsign --signer "$SIGNER" --release ${VERSION}-osx-signed --destination ../gitian.sigs.ltc/ ../magmelldollar/contrib/gitian-descriptors/gitian-osx-signer.yml
     ./bin/gverify -v -d ../gitian.sigs.ltc/ -r ${VERSION}-osx-signed ../magmelldollar/contrib/gitian-descriptors/gitian-osx-signer.yml
     mv build/out/magmelldollar-osx-signed.dmg ../magmelldollar-${VERSION}-osx.dmg
     popd
@@ -180,17 +213,17 @@ Create (and optionally verify) the signed Windows binaries:
 
     pushd ./gitian-builder
     ./bin/gbuild -i --commit signature=v${VERSION} ../magmelldollar/contrib/gitian-descriptors/gitian-win-signer.yml
-    ./bin/gsign --signer $SIGNER --release ${VERSION}-win-signed --destination ../gitian.sigs.ltc/ ../magmelldollar/contrib/gitian-descriptors/gitian-win-signer.yml
+    ./bin/gsign --signer "$SIGNER" --release ${VERSION}-win-signed --destination ../gitian.sigs.ltc/ ../magmelldollar/contrib/gitian-descriptors/gitian-win-signer.yml
     ./bin/gverify -v -d ../gitian.sigs.ltc/ -r ${VERSION}-win-signed ../magmelldollar/contrib/gitian-descriptors/gitian-win-signer.yml
     mv build/out/magmelldollar-*win64-setup.exe ../magmelldollar-${VERSION}-win64-setup.exe
     mv build/out/magmelldollar-*win32-setup.exe ../magmelldollar-${VERSION}-win32-setup.exe
     popd
 
-Commit your signature for the signed OS X/Windows binaries:
+Commit your signature for the signed macOS/Windows binaries:
 
     pushd gitian.sigs.ltc
-    git add ${VERSION}-osx-signed/${SIGNER}
-    git add ${VERSION}-win-signed/${SIGNER}
+    git add ${VERSION}-osx-signed/"${SIGNER}"
+    git add ${VERSION}-win-signed/"${SIGNER}"
     git commit -a
     git push  # Assuming you can push to the gitian.sigs.ltc tree
     popd
@@ -233,22 +266,21 @@ Note: check that SHA256SUMS itself doesn't end up in SHA256SUMS, which is a spur
 
 - Upload zips and installers, as well as `SHA256SUMS.asc` from last step, to the magmelldollar.org server.
 
+```
 - Update magmelldollar.org version
 
 - Announce the release:
 
-  - magmelldollar-dev mailing list
-
-  - Magmelldollar Core announcements list https://groups.google.com/forum/#!forum/magmelldollar-dev
+  - magmelldollar-dev and magmelldollar-dev mailing list
 
   - blog.magmelldollar.org blog post
 
-  - magmelldollartalk.io forum announcement
-
-  - Update title of #magmelldollar on Freenode IRC
+  - Update title of #magmelldollar and #magmelldollar-dev on Freenode IRC
 
   - Optionally twitter, reddit /r/Magmelldollar, ... but this will usually sort out itself
 
-  - Add release notes for the new version to the directory `doc/release-notes` in git master
+  - Archive release notes for the new version to `doc/release-notes/` (branch `master` and branch of the release)
+
+  - Create a [new GitHub release](https://github.com/magmelldollar-project/magmelldollar/releases/new) with a link to the archived release notes.
 
   - Celebrate
