@@ -1,8 +1,0 @@
-/usr/bin/magmelldollar-cli		--	gen_context(system_u:object_r:magmelldollar_exec_t,s0)
-/usr/sbin/magmelldollard		--	gen_context(system_u:object_r:magmelldollar_exec_t,s0)
-/usr/lib(64)?/magmelldollar/magmelldollard		--	gen_context(system_u:object_r:magmelldollar_exec_t,s0)
-
-/etc/magmelldollar(/.*)?		gen_context(system_u:object_r:magmelldollar_conf_t,s0)
-/var/lib/magmelldollar(/.*)?		gen_context(system_u:object_r:magmelldollar_var_lib_t,s0)
-
-(/var)?/run/magmelldollard(/.*)?   gen_context(system_u:object_r:magmelldollar_var_run_t,s0)
