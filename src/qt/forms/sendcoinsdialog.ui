@@ -1160,7 +1160,7 @@ Note:  Since the fee is calculated on a per-byte basis, a fee of &quot;100 satos
       <widget class="QPushButton" name="mintButton">
        <property name="minimumSize">
         <size>
-         <width>150</width>
+         <width>80</width>
          <height>0</height>
         </size>
        </property>
