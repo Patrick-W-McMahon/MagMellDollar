@@ -1,27 +1,27 @@
-#!/sbin/runscript
+#!/sbin/openrc-run
 
 # backward compatibility for existing gentoo layout 
 #
-if [ -d "/var/lib/magmelldollar/.magmelldollar" ]; then
-	BITCOIND_DEFAULT_DATADIR="/var/lib/magmelldollar/.magmelldollar"
+if [ -d "/var/lib/bitcoin/.bitcoin" ]; then
+	BITCOIND_DEFAULT_DATADIR="/var/lib/bitcoin/.bitcoin"
 else
-	BITCOIND_DEFAULT_DATADIR="/var/lib/magmelldollard"
+	BITCOIND_DEFAULT_DATADIR="/var/lib/bitcoind"
 fi
 
-BITCOIND_CONFIGFILE=${BITCOIND_CONFIGFILE:-/etc/magmelldollar/magmelldollar.conf}
-BITCOIND_PIDDIR=${BITCOIND_PIDDIR:-/var/run/magmelldollard}
-BITCOIND_PIDFILE=${BITCOIND_PIDFILE:-${BITCOIND_PIDDIR}/magmelldollard.pid}
+BITCOIND_CONFIGFILE=${BITCOIND_CONFIGFILE:-/etc/bitcoin/bitcoin.conf}
+BITCOIND_PIDDIR=${BITCOIND_PIDDIR:-/var/run/bitcoind}
+BITCOIND_PIDFILE=${BITCOIND_PIDFILE:-${BITCOIND_PIDDIR}/bitcoind.pid}
 BITCOIND_DATADIR=${BITCOIND_DATADIR:-${BITCOIND_DEFAULT_DATADIR}}
-BITCOIND_USER=${BITCOIND_USER:-${BITCOIN_USER:-magmelldollar}}
-BITCOIND_GROUP=${BITCOIND_GROUP:-magmelldollar}
-BITCOIND_BIN=${BITCOIND_BIN:-/usr/bin/magmelldollard}
+BITCOIND_USER=${BITCOIND_USER:-${BITCOIN_USER:-bitcoin}}
+BITCOIND_GROUP=${BITCOIND_GROUP:-bitcoin}
+BITCOIND_BIN=${BITCOIND_BIN:-/usr/bin/bitcoind}
 BITCOIND_NICE=${BITCOIND_NICE:-${NICELEVEL:-0}}
 BITCOIND_OPTS="${BITCOIND_OPTS:-${BITCOIN_OPTS}}"
 
-name="Magmelldollar Core Daemon"
-description="Magmelldollar cryptocurrency P2P network daemon"
+name="Bitcoin Core Daemon"
+description="Bitcoin cryptocurrency P2P network daemon"
 
-command="/usr/bin/magmelldollard"
+command="/usr/bin/bitcoind"
 command_args="-pid=\"${BITCOIND_PIDFILE}\" \
 		-conf=\"${BITCOIND_CONFIGFILE}\" \
 		-datadir=\"${BITCOIND_DATADIR}\" \
@@ -71,20 +71,20 @@ checkconfig()
 {
 	if ! grep -qs '^rpcpassword=' "${BITCOIND_CONFIGFILE}" ; then
 		eerror ""
-		eerror "ERROR: You must set a secure rpcpassword to run magmelldollard."
+		eerror "ERROR: You must set a secure rpcpassword to run bitcoind."
 		eerror "The setting must appear in ${BITCOIND_CONFIGFILE}"
 		eerror ""
 		eerror "This password is security critical to securing wallets "
 		eerror "and must not be the same as the rpcuser setting."
-		eerror "You can generate a suitable random password using the following"
+		eerror "You can generate a suitable random password using the following "
 		eerror "command from the shell:"
 		eerror ""
 		eerror "bash -c 'tr -dc a-zA-Z0-9 < /dev/urandom | head -c32 && echo'"
 		eerror ""
-		eerror "It is also recommended that you also set alertnotify so you are "
+		eerror "It is recommended that you also set alertnotify so you are "
 		eerror "notified of problems:"
 		eerror ""
-		eerror "ie: alertnotify=echo %%s | mail -s \"Magmelldollar Alert\"" \
+		eerror "ie: alertnotify=echo %%s | mail -s \"Bitcoin Alert\"" \
 			"admin@foo.com"
 		eerror ""
 		return 1
