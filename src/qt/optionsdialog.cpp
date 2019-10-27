@@ -9,7 +9,7 @@
 #include <qt/optionsdialog.h>
 #include <qt/forms/ui_optionsdialog.h>
 
-#include <qt/bitcoinunits.h>
+#include <qt/currencyunits.h>
 #include <qt/guiutil.h>
 #include <qt/optionsmodel.h>
 
@@ -108,7 +108,7 @@ OptionsDialog::OptionsDialog(QWidget *parent, bool enableWallet) :
     }
     ui->thirdPartyTxUrls->setPlaceholderText("https://example.com/tx/%s");
 
-    ui->unit->setModel(new BitcoinUnits(this));
+    ui->unit->setModel(new CurrencyUnits(this));
 
     /* Widget-to-option mapper */
     mapper = new QDataWidgetMapper(this);
