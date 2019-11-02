@@ -75,6 +75,7 @@ class CMainParams : public CChainParams {
 public:
     CMainParams() {
         strNetworkID = "main";
+        consensus.treasury = uint256S("0x0");
         consensus.burnFee = 400;
         consensus.blockBaseSubsidy = 0;
         consensus.nSubsidyHalvingInterval = 840000;
@@ -202,6 +203,7 @@ class CTestNetParams : public CChainParams {
 public:
     CTestNetParams() {
         strNetworkID = "test";
+        consensus.treasury = uint256S("0x0");
         consensus.burnFee = 400;
         consensus.blockBaseSubsidy = 0;
         consensus.nSubsidyHalvingInterval = 840000;
@@ -297,6 +299,7 @@ class CRegTestParams : public CChainParams {
 public:
     CRegTestParams() {
         strNetworkID = "regtest";
+        consensus.treasury = uint256S("0x0");
         consensus.burnFee = 400;
         consensus.blockBaseSubsidy = 0;
         consensus.nSubsidyHalvingInterval = 150;

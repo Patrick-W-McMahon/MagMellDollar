@@ -48,6 +48,8 @@ struct BIP9Deployment {
  */
 struct Params {
     uint256 hashGenesisBlock;
+    /** The wallet address that is permitted to create minted coins and is allowed for output of coinbase. */
+    uint256 treasury;
     /** The amount of currency burned in a transaction */
     int burnFee;
     /** The starting amount for block subsidy */
